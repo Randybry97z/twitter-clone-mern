@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
-const URI = 'mongodb://localhost/twitter-clone'
+//env variable, located in .env or dbtest
+const URI = process.env.MONGODB_URI
+  ? process.env.MONGODB_URI
+  : 'mongodb://localhost/dbtest'
 
+//Connection & parameters
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -10,6 +14,7 @@ mongoose.connect(URI, {
 
 const connection = mongoose.connection
 
+//If the connection if open, show the message
 connection.once('open', () => {
   console.log('Database connected')
 })

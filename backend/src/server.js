@@ -1,7 +1,11 @@
-const app = require('./app')
-const db = require('./db')
+'use strict';
+//Importing env
+require('dotenv').config();
 
-app.set('port', process.env.PORT || 4000)
+//Importing app.js
+const app = require('./app')
+//Importing db
+require('./db')
 
 async function main() {
   await app.listen(app.get('port'))
