@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    lowercase: true,
     unique: true
   },
   password: {
@@ -21,9 +22,9 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  edad: Int32Array
+  edad: Number
 }, {
   timestamps: true
 })
 
-module.exports = model('user', UserSchema)
+module.exports = model('User', UserSchema)

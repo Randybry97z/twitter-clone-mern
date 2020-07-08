@@ -4,7 +4,7 @@ const app = express()
 const cors = require('cors')
 
 //Importing routes
-const userRoutes = require('./routes/users.routes')
+const userRoutes = require('./routes/auth.routes')
 const tweetRoutes = require('./routes/tweets.routes')
 
 //settings
