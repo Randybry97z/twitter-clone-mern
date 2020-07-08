@@ -1,5 +1,6 @@
 'use strict';
 const { Schema, model } = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const UserSchema = new Schema({
   name: {
@@ -22,9 +23,14 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  edad: Number
+  age: Number
 }, {
   timestamps: true
 })
+
+UserSchema.methods.encryptPass = async (password) => {
+  const salt = await bcrypt.genSalt(10)
+  return bcrypt.hash(password, salt)
+}
 
 module.exports = model('User', UserSchema)
