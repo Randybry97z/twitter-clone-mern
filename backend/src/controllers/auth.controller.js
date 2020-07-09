@@ -1,5 +1,5 @@
 const User = require('../models/User')
-
+const jwt = require('jsonwebtoken')
 
 module.exports = {
   signup: async (req, res, next) => {
@@ -16,8 +16,13 @@ module.exports = {
     user.password = await user.encryptPass(user.password)
     //saving user in the database
     await user.save()
-    res.json({ auth: true, message: "User created succesfully!" })
+    //create token with jwt
+    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+      expiresIn: 60 * 60 * 3
+    })
+    res.json({ auth: true, token, message: "User created succesfully!" })
   },
+
   signin: async (req, res, next) => {
     const { username, password } = req.body
     const user = await User.findOne({ username })
@@ -25,8 +30,21 @@ module.exports = {
       return res.status(404).send("The user doesn't exists")
     }
     const passwordIsValid = await user.validatePass(password)
-    console.log(passwordIsValid)
-    res.json({ message: 'Signed succesfully' })
+    if (!passwordIsValid) {
+      return res.status(404).json({ auth: false, token: null })
+    }
+    //create token with jwt
+    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+      expiresIn: 60 * 60 * 3
+    })
+    res.json({ auth: true, token, message: 'Signed succesfully' })
   },
-  profile: (req, res, next) => res.json({ message: 'POST Request' })
+
+  profile: async (req, res, next) => {
+    const user = await User.findById(req.userId, { password: 0 })
+    if (!user) {
+      return res.status(404).send('No user found')
+    }
+    res.json(user)
+  }
 }

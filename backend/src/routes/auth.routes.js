@@ -1,6 +1,7 @@
 'use strict';
 const { Router } = require('express')
-const authController = require('../controllers/auth.controller')
+const authController = require('../controllers/auth.controller');
+const verifyToken = require('../controllers/validateToken.controller');
 const router = Router()
 
 router.route('/signup')
@@ -10,6 +11,6 @@ router.route('/signin')
   .post(authController.signin)
 
 router.route('/profile')
-  .post((req, res, next) => res.json({ message: 'POST Request' }))
+  .get(verifyToken, authController.profile)
 
 module.exports = router
