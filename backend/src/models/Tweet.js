@@ -6,7 +6,12 @@ const TweetSchema = new Schema({
     required: true,
     type: String
   },
-  user: String,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
+  media: String,
 }, {
   timestamps: true
 })

@@ -23,6 +23,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  tweets: {
+    type: Schema.Types.ObjectId,
+    ref: 'Tweet'
+  },
   age: Number
 }, {
   timestamps: true

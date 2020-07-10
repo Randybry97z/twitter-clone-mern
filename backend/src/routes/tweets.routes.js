@@ -1,15 +1,18 @@
 'use strict';
 const { Router } = require('express')
-const { index, create, update, getTweet, deleteTweet } = require('../controllers/tweets.controller')
+const TweetController = require('../controllers/tweets.controller');
+const verifyToken = require('../controllers/validateToken.controller');
 const router = Router()
 
 router.route('/')
-  .get(index)
-  .post(create)
+  .get(TweetController.index)
 
-router.route('/:id')
+router.route('/create')
+  .post(verifyToken, TweetController.create)
+
+/* router.route('/:id')
   .get(getTweet)
   .put(update)
-  .delete(deleteTweet)
+  .delete(deleteTweet) */
 
 module.exports = router

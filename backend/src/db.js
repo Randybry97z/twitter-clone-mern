@@ -5,6 +5,9 @@ const URI = process.env.MONGODB_URI
   ? process.env.MONGODB_URI
   : 'mongodb://localhost/dbtest'
 
+//options
+mongoose.set('useFindAndModify', false)
+
 //Connection & parameters
 mongoose.connect(URI, {
   useNewUrlParser: true,
