@@ -28,12 +28,24 @@ module.exports = {
     res.send(userById)
   },
   delete: async (req, res, next) => {
+    //User & id request
+    const user = req.userId
     const id = req.params.id
-    const tweet = await Tweet.deleteOne({ id })
-
-    User.update({ $pull: { tweets: tweet } })
-
-    res.send("Tweets eliminados correctamente")
+    //Find the tweet to pull in user document
+    const tweet = await Tweet.findById(id)
+    //Delete tweet by id
+    await Tweet.deleteOne({ _id: id }, ((err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(res)
+      }
+    }))
+    //Pull the tweet to the user document
+    const userById = await User.findByIdAndUpdate(user, { $pull: { tweets: [tweet._id] } })
+    //Save the document update
+    await userById.save()
+    res.json("tweet deleted")
 
   }
 }
