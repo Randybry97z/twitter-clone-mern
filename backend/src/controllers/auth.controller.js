@@ -37,6 +37,8 @@ module.exports = {
     const token = jwt.sign({ id: user._id }, process.env.SECRET, {
       expiresIn: 60 * 60 * 3
     })
+    //create session
+    req.session.userId = user._id
     res.json({ auth: true, token, message: 'Signed succesfully' })
   },
 
