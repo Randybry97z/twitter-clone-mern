@@ -6,12 +6,12 @@ const router = Router()
 
 router.route('/')
   .get(TweetController.index)
+  .post(verifyToken, TweetController.create)
 
-router.route('/delete/:id')
+router.route('/:id')
+  .get(TweetController.getOne)
   .delete(verifyToken, TweetController.delete)
 
-router.route('/create')
-  .post(verifyToken, TweetController.create)
 
 /* router.route('/:id')
   .get(getTweet)

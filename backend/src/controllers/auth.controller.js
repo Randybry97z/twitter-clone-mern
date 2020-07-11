@@ -46,5 +46,21 @@ module.exports = {
       return res.status(404).send('No user found')
     }
     res.json(user)
+  },
+  delete: async (req, res, next) => {
+    //get the id in the request
+    const user = req.userId
+
+    //deleting user
+    await User.deleteOne({ _id: user }, (err, res) => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.send(res)
+      }
+    })
+
+    //send message to the client
+    res.json({ message: "User deleted succesfully!" })
   }
 }

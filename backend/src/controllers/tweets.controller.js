@@ -36,9 +36,9 @@ module.exports = {
     //Delete tweet by id
     await Tweet.deleteOne({ _id: id }, ((err, res) => {
       if (err) {
-        console.log(err)
+        res.send(err)
       } else {
-        console.log(res)
+        res.send(res)
       }
     }))
     //Pull the tweet to the user document
@@ -46,6 +46,14 @@ module.exports = {
     //Save the document update
     await userById.save()
     res.json("tweet deleted")
+  },
+  getOne: async (req, res, next) => {
+    //Get the id of the tweet
+    const id = req.params.id
 
+    //Find the tweet by id
+    const tweet = await Tweet.findById(id)
+
+    res.json(tweet)
   }
 }

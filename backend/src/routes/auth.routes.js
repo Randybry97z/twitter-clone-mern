@@ -13,4 +13,7 @@ router.route('/signin')
 router.route('/profile')
   .get(verifyToken, authController.profile)
 
+router.route('/delete')
+  .delete(verifyToken, authController.delete)
+
 module.exports = router
