@@ -27,7 +27,7 @@ app.use(session({
 
 //routes
 app.use(findUserMiddleware)
-app.use(authUserMiddleware)
+//app.use(authUserMiddleware)
 app.use('/api/users', userRoutes)
 app.use('/api/tweets', tweetRoutes)
 

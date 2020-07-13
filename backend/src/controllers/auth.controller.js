@@ -49,6 +49,7 @@ module.exports = {
     }
     res.json(user)
   },
+
   delete: async (req, res, next) => {
     //get the id in the request
     const user = req.userId
