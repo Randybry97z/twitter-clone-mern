@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import Nav from './General/Nav'
+import Header from './General/Header'
 
 export default class Index extends Component {
   render() {
     return (
       <div>
-        <Nav></Nav>
-        Index
+        <Header />
       </div >
     )
   }
